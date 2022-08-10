@@ -1,0 +1,43 @@
+const ss = SpreadsheetApp.getActiveSpreadsheet();
+const spreadsheet = SpreadsheetApp.getActive();
+const sp = PropertiesService.getScriptProperties();
+const ui = SpreadsheetApp.getUi();
+const sheet = ss.getSheetByName("places");
+const dateSheet = ss.getSheetByName("Date");
+const rng = sheet.getRange(2,1,sheet.getLastRow(),33).getValues(); 
+
+function onOpen(e) {  
+  ui.createMenu('Daily Reports')
+    .addSubMenu(ui.createMenu('Chicago')
+      .addItem('Create Sheet On Date', 'filterChiSet')
+      .addItem('Create Sheet After Date', 'filterChiAft')
+      .addItem('Create Sheet Between Dates', 'filterChiBet')
+        .addSubMenu(ui.createMenu('CBO')
+          .addSubMenu(ui.createMenu('Alternatives')
+            .addItem('Create Sheet After Date', 'filterAltAft'))))
+      .addSubMenu(ui.createMenu('New York')
+      .addItem('Create Sheet On Date', 'filterNYSet')
+      .addItem('Create Sheet After Date', 'filterNYAft')
+      .addItem('Create Sheet Between Dates', 'filterNYBet'))
+    .addSubMenu(ui.createMenu('Hawaii')
+      .addItem('Create Sheet On Date', 'filterHawaiiSet')
+      .addItem('Create Sheet After Date', 'filterHawaiiAft')
+      .addItem('Create Sheet Between Dates', 'filterHawaiiBet'))
+    .addSubMenu(ui.createMenu('Admin')
+      .addItem('Delete All Tabs', 'deleteAll')
+      .addItem('Filter Chicago and NY', 'filterChiNY'))
+  .addToUi();
+}
+
+function deleteAll() {
+  var sheets = ss.getSheets();
+  for (i = 0; i < sheets.length; i++) {
+    switch(sheets[i].getSheetName()) {
+      case "Date":
+      case "places":
+      break;
+      default:
+      ss.deleteSheet(sheets[i]);
+    }
+  }
+}

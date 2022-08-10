@@ -1,0 +1,90 @@
+function filterChiAft(){
+
+  let Criteria1 = "Chicago";
+  let Criteria2 = "Mapped";
+  let Criteria3 = "Checked";
+  let Criteria4 = dateSheet.getRange("B3").getValue();
+  
+  let FData = rng.filter(function(e){
+    return e[7] == Criteria1
+    && (e[15] == Criteria2 || e[15] == Criteria3)
+    && (e[28] >= Criteria4 || e[28].toLocaleString().includes("1900"))
+  })
+
+  let newSheet = ss.insertSheet(Criteria1 + " After " + Criteria4.toString().slice(0,10));
+  newSheet.getRange(2,1,FData.length,33)
+    .setValues(FData)
+    .setHorizontalAlignment("left")
+    .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+  
+  let headers = sheet.getRange("A1:AG1").getValues();
+  newSheet.getRange("A1:AG1")
+    .setValues(headers)
+    .setHorizontalAlignment("left")
+    .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+  
+  newSheet.sort(2,false);
+  newSheet.sort(29,false);
+  newSheet.setRowHeightsForced(1,FData.length+1,23);
+  newSheet.setTabColor("ff0000");
+  newSheet.setColumnWidths(1,33,100);
+  newSheet.setColumnWidth(1,60);
+  newSheet.setColumnWidth(2,300);
+  newSheet.setColumnWidth(3,50);
+  newSheet.setColumnWidth(4,200);
+  newSheet.setColumnWidth(5,50);
+  newSheet.setColumnWidth(6,50);
+  newSheet.setColumnWidth(13,175);
+  newSheet.setColumnWidth(14,175);
+  newSheet.setColumnWidth(22,50);
+  newSheet.setFrozenRows(1);
+  newSheet.setFrozenColumns(2);
+}
+
+function filterNYAft(){
+
+  let Criteria1 = "New York";
+  let Criteria2 = "Mapped";
+  let Criteria3 = "Checked";
+  let Criteria4 = dateSheet.getRange("B4").getValue();
+  
+  let FData = rng.filter(function(e){
+    return e[7] == Criteria1
+    && (e[15] == Criteria2 || e[15] == Criteria3)
+    && (e[28] >= Criteria4 || e[28].toLocaleString().includes("1900"))
+  })
+
+  let newSheet = ss.insertSheet(Criteria1 + " After " + Criteria4.toString().slice(0,10));
+  newSheet.getRange(2,1,FData.length,33)
+    .setValues(FData)
+    .setHorizontalAlignment("left")
+    .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+  
+  let headers = sheet.getRange("A1:AG1").getValues();
+  newSheet.getRange("A1:AG1")
+    .setValues(headers)
+    .setHorizontalAlignment("left")
+    .setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+  
+  newSheet.sort(2,false);
+  newSheet.sort(29,false);
+  newSheet.setRowHeightsForced(1,FData.length+1,23);
+  newSheet.setTabColor("0000ff");
+  newSheet.setColumnWidths(1,33,100);
+  newSheet.setColumnWidth(1,60);
+  newSheet.setColumnWidth(2,300);
+  newSheet.setColumnWidth(3,50);
+  newSheet.setColumnWidth(4,200);
+  newSheet.setColumnWidth(5,50);
+  newSheet.setColumnWidth(6,50);
+  newSheet.setColumnWidth(13,175);
+  newSheet.setColumnWidth(14,175);
+  newSheet.setColumnWidth(22,50);
+  newSheet.setFrozenRows(1);
+  newSheet.setFrozenColumns(2);
+}
+
+function filterChiNY() {
+  filterChiAft();
+  filterNYAft();
+}
